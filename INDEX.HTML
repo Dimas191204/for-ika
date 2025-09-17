@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-form {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .login-form h1 {
+            color: #4a4a4a;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff6b6b, #ffa500);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.6);
+        }
+
+        .surprise-container {
+            display: none;
+            text-align: center;
+            animation: surpriseEntry 1s ease-out;
+        }
+
+        @keyframes surpriseEntry {
+            0% { 
+                opacity: 0; 
+                transform: scale(0.5) rotateY(-180deg);
+            }
+            100% { 
+                opacity: 1; 
+                transform: scale(1) rotateY(0deg);
+            }
+        }
+
+        .birthday-card {
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            max-width: 800px;
+            margin: 20px;
+            border: 3px solid #ffd700;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .birthday-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .birthday-title {
+            font-size: 3.5em;
+            background: linear-gradient(45deg, #ff6b6b, #ffa500, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            animation: titlePulse 2s ease-in-out infinite;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        @keyframes titlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .birthday-message {
+            font-size: 1.3em;
+            color: #444;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            text-align: justify;
+            position: relative;
+            z-index: 2;
+        }
+
+        .photo-frame {
+            width: 300px;
+            height: 300px;
+            margin: 30px auto;
+            border: 10px solid #ffd700;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            animation: photoGlow 3s ease-in-out infinite;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            color: #666;
+        }
+
+        @keyframes photoGlow {
+            0%, 100% { box-shadow: 0 15px 30px rgba(0,0,0,0.4); }
+            50% { box-shadow: 0 15px 30px rgba(255, 215, 0, 0.6); }
+        }
+
+        .balloons {
+            position: fixed;
+            top: -100px;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .balloon {
+            position: absolute;
+            width: 80px;
+            height: 100px;
+            border-radius: 50px 50px 50px 50px;
+            animation: floatUp 8s linear infinite;
+        }
+
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100px;
+            background: #333;
+        }
+
+        .balloon:nth-child(1) { background: #ff6b6b; left: 10%; animation-delay: 0s; }
+        .balloon:nth-child(2) { background: #4ecdc4; left: 20%; animation-delay: 1s; }
+        .balloon:nth-child(3) { background: #45b7d1; left: 30%; animation-delay: 2s; }
+        .balloon:nth-child(4) { background: #96ceb4; left: 40%; animation-delay: 3s; }
+        .balloon:nth-child(5) { background: #feca57; left: 50%; animation-delay: 4s; }
+        .balloon:nth-child(6) { background: #ff9ff3; left: 60%; animation-delay: 5s; }
+        .balloon:nth-child(7) { background: #54a0ff; left: 70%; animation-delay: 6s; }
+        .balloon:nth-child(8) { background: #5f27cd; left: 80%; animation-delay: 7s; }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotateZ(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotateZ(360deg);
+                opacity: 0;
+            }
+        }
+
+        .confetti {
+            position: fixed;
+            top: -10px;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ffd700;
+            animation: confettiFall 3s linear infinite;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100vh) rotateZ(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotateZ(720deg);
+                opacity: 0;
+            }
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .error-message {
+            color: #ff4757;
+            margin-top: 15px;
+            font-size: 1.1em;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .error-message.show {
+            opacity: 1;
+        }
+
+        /* Shake animation (ditambahkan agar tidak error saat dipanggil melalui JS) */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        @media (max-width: 768px) {
+            .login-form {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+            
+            .birthday-title {
+                font-size: 2.5em;
+            }
+            
+            .birthday-message {
+                font-size: 1.1em;
+            }
+            
+            .photo-frame {
+                width: 250px;
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    
+    <div class="container">
+        <div class="login-form" id="loginForm">
+            <h1>🎂 Selamat Datang Mbak Ika 🎂</h1>
+            <p style="margin-bottom: 25px; color: #666; font-size: 1.1em;">
+                
+            </p>
+            <div class="form-group">
+                <label for="nameInput">Masukkan nama Mbak:</label>
+                <input type="text" id="nameInput" placeholder="Ketik nama di sini..." autocomplete="off">
+            </div>
+            <button class="btn" onclick="checkName()">Masuk 🎁</button>
+            <div class="error-message" id="errorMessage">
+                Hmm, sepertinya bukan kamu yang berulang tahun hari ini... 🤨
+            </div>
+        </div>
+
+        <div class="surprise-container" id="surpriseContainer">
+            <div class="birthday-card">
+                <h1 class="birthday-title">🎉 SELAMAT ULANG TAHUN MBAK IKA!! 🎉</h1>
+                
+                <div class="photo-frame">
+                    <img src="ika.jpg" alt="Foto Kakak Ika" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+                </div>
+
+                <div class="birthday-message">
+                    <p><strong>Untuk mbak Ika yang terbaik </strong></p>
+                    <br>
+                    <p>Hari ini adalah hari yang istimewa karena dunia mendapat hadiah terbesar - yaitu kehadiran mbak ika di dalamnya. Setiap tahun yang berlalu adalah bukti perjalanan hidup yang penuh makna dan pencapaian yang membanggakan.</p>
+                    <br>
+                    <p>mbak ika merupakan sosok yang menginspirasi, dengan kebaikan hati yang tulus dan kekuatan yang luar biasa yang sudah selalu kuat menghadapi segala percobaan. Semoga di umur 26 ini, setiap langkah mbak ika dipenuhi dengan kebahagiaan, kesehatan, dan kesuksesan yang berlimpah.</p>
+                    <br>
+                    <p>Terima kasih telah menjadi kakak yang baik dalam hidup keluarga meski banyak menyimpan luka. Semoga semua impian dan harapan mbak ika akan selalu menjadi kenyataan. Selamat bertambah usia, semoga semakin bijaksana dan bahagia!</p>
+                    <br>
+                    <p><em>Dengan cinta dan doa terbaik,<br>Dari Dimas dan Keluarga ❤️</em></p>
+                </div>
+
+                <button class="back-btn" onclick="goBack()">Kembali</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="balloons" id="balloons"></div>
+    <div class="confetti" id="confetti"></div>
+
+    <!-- Pemutar audio (siapkan file lagu.mp3 di folder yang sama) -->
+    <audio id="bgMusic" src="lagu.mp3" preload="auto"></audio>
+
+    <script>
+        // Create stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            // bersihkan (jika ada) agar tidak bertambah saat dipanggil ulang
+            starsContainer.innerHTML = '';
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = star.style.height = (Math.random() * 3 + 1) + 'px';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Create balloons
+        function createBalloons() {
+            const balloonsContainer = document.getElementById('balloons');
+            // jangan menumpuk saat dipanggil berulang
+            balloonsContainer.innerHTML = '';
+            for (let i = 0; i < 8; i++) {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloonsContainer.appendChild(balloon);
+            }
+        }
+
+        // Create confetti
+        function createConfetti() {
+            const confettiContainer = document.getElementById('confetti');
+            confettiContainer.innerHTML = '';
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#feca57', '#ff9ff3', '#54a0ff', '#5f27cd', '#00d2d3'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti-piece';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 3 + 's';
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                confettiContainer.appendChild(confetti);
+            }
+        }
+
+        // Check name function
+        function checkName() {
+            const nameInput = document.getElementById('nameInput');
+            const errorMessage = document.getElementById('errorMessage');
+            const loginForm = document.getElementById('loginForm');
+            const surpriseContainer = document.getElementById('surpriseContainer');
+            
+            const inputName = nameInput.value.trim().toLowerCase();
+            
+            if (inputName === 'ika') {
+                // Show surprise
+                loginForm.style.display = 'none';
+                surpriseContainer.style.display = 'block';
+                
+                // Start animations
+                createBalloons();
+                createConfetti();
+                
+                // Play celebration music (aman karena berasal dari interaksi klik)
+                const audio = document.getElementById('bgMusic');
+                try {
+                    audio.currentTime = 0;
+                } catch (e) { /* ignore on some older browsers */ }
+                const p = audio.play();
+                if (p !== undefined) {
+                    p.catch(err => {
+                        // Jika pemutaran ditolak, tampilkan pesan di console (non-blocking)
+                        console.warn('Audio play was prevented:', err);
+                    });
+                }
+                
+            } else {
+                // Show error message
+                errorMessage.classList.add('show');
+                nameInput.style.borderColor = '#ff4757';
+                // pakai style animation langsung (keyframes disediakan di CSS)
+                nameInput.style.animation = 'shake 0.5s ease-in-out';
+                
+                setTimeout(() => {
+                    errorMessage.classList.remove('show');
+                    nameInput.style.borderColor = '#ddd';
+                    nameInput.style.animation = '';
+                }, 3000);
+            }
+        }
+
+        // Go back function
+        function goBack() {
+            const loginForm = document.getElementById('loginForm');
+            const surpriseContainer = document.getElementById('surpriseContainer');
+            
+            surpriseContainer.style.display = 'none';
+            loginForm.style.display = 'block';
+            
+            // Clear input
+            const input = document.getElementById('nameInput');
+            input.value = '';
+            
+            // Clear balloons and confetti
+            document.getElementById('balloons').innerHTML = '';
+            document.getElementById('confetti').innerHTML = '';
+
+            // Stop music if sedang play
+            const audio = document.getElementById('bgMusic');
+            if (!audio.paused) {
+                audio.pause();
+                try { audio.currentTime = 0; } catch (e) {}
+            }
+        }
+
+        // Enter key support (keydown lebih andal)
+        document.getElementById('nameInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                checkName();
+            }
+        });
+
+        // Initialize stars on load
+        window.addEventListener('load', () => {
+            createStars();
+        });
+    </script>
+</body>
+</html>
